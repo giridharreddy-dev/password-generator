@@ -3,69 +3,347 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Password Generator</title>
+  <title>Premium Password Generator - Advanced Security Tool</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  
+  <!-- Animated Background -->
+  <div class="bg-animation"></div>
+  
+  <div class="main-container">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo-section">
+          <h1 class="title">🔐 Password Generator</h1>
+          <p class="subtitle">Professional Security Suite</p>
+        </div>
+        <div class="header-controls">
+          <select id="languageSelect" class="control-select">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+          </select>
+          <button id="themeToggle" class="theme-btn" title="Toggle Dark/Light Mode">🌙</button>
+          <button id="settingsBtn" class="settings-btn" title="Settings">⚙️</button>
+        </div>
+      </div>
+    </header>
 
-  <div class="container">
+    <!-- Main Content -->
+    <div class="content-wrapper">
+      
+      <!-- Left Panel -->
+      <div class="left-panel">
+        
+        <!-- Password Display Section -->
+        <div class="card password-card">
+          <h2 class="card-title">Generated Password</h2>
+          <div class="password-display-section">
+            <div class="password-output-wrapper">
+              <input type="password" id="passwordOutput" class="password-output" readonly>
+              <button id="toggleVisibility" class="visibility-btn" title="Show/Hide Password">👁️</button>
+            </div>
+            <div class="password-actions">
+              <button id="copyBtn" class="action-btn copy-btn" title="Copy to Clipboard">📋 Copy</button>
+              <button id="generateBtn" class="action-btn generate-btn" title="Generate New Password">✨ Generate</button>
+              <button id="refreshBtn" class="action-btn refresh-btn" title="Quick Refresh">🔄</button>
+            </div>
+          </div>
+          
+          <!-- Strength Meter -->
+          <div class="strength-section">
+            <div class="strength-header">
+              <label>Password Strength:</label>
+              <span id="strengthLabel" class="strength-label">Weak</span>
+            </div>
+            <div class="strength-meter">
+              <div id="strengthBar" class="strength-bar"></div>
+            </div>
+            <div class="strength-details">
+              <p id="strengthInfo">Generate a password to see details</p>
+            </div>
+          </div>
 
-    <!-- Header -->
-    <div class="top-bar">
-      <h1>Password Generator</h1>
-      <button id="themeToggle">🌙</button>
+          <!-- Feedback Message -->
+          <div id="feedbackMessage" class="feedback-message"></div>
+        </div>
+
+        <!-- Quick Presets -->
+        <div class="card presets-card">
+          <h2 class="card-title">Quick Presets</h2>
+          <div class="presets-grid">
+            <button class="preset-btn" data-preset="light">
+              <span>📝</span>
+              <span>Light</span>
+              <small>12 chars</small>
+            </button>
+            <button class="preset-btn" data-preset="medium">
+              <span>🔒</span>
+              <span>Medium</span>
+              <small>16 chars</small>
+            </button>
+            <button class="preset-btn" data-preset="strong">
+              <span>🛡️</span>
+              <span>Strong</span>
+              <small>20 chars</small>
+            </button>
+            <button class="preset-btn" data-preset="extreme">
+              <span>💪</span>
+              <span>Extreme</span>
+              <small>32 chars</small>
+            </button>
+            <button class="preset-btn" data-preset="alphanumeric">
+              <span>🔢</span>
+              <span>Alphanumeric</span>
+              <small>No symbols</small>
+            </button>
+            <button class="preset-btn" data-preset="memorable">
+              <span>🧠</span>
+              <span>Memorable</span>
+              <small>Words</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- Password History -->
+        <div class="card history-card">
+          <div class="card-header">
+            <h2 class="card-title">Password History</h2>
+            <button id="clearHistoryBtn" class="icon-btn" title="Clear History">🗑️</button>
+          </div>
+          <div id="historyList" class="history-list">
+            <p class="empty-message">No history yet</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Panel - Settings -->
+      <div class="right-panel">
+        
+        <!-- Character Set Options -->
+        <div class="card settings-card">
+          <h2 class="card-title">Character Sets</h2>
+          
+          <div class="settings-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="useUppercase" class="checkbox-input" checked>
+              <span class="checkbox-custom"></span>
+              <span class="label-text">Uppercase (A-Z)</span>
+            </label>
+            <p class="hint">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+          </div>
+
+          <div class="settings-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="useLowercase" class="checkbox-input" checked>
+              <span class="checkbox-custom"></span>
+              <span class="label-text">Lowercase (a-z)</span>
+            </label>
+            <p class="hint">abcdefghijklmnopqrstuvwxyz</p>
+          </div>
+
+          <div class="settings-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="useNumbers" class="checkbox-input" checked>
+              <span class="checkbox-custom"></span>
+              <span class="label-text">Numbers (0-9)</span>
+            </label>
+            <p class="hint">0123456789</p>
+          </div>
+
+          <div class="settings-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="useSymbols" class="checkbox-input">
+              <span class="checkbox-custom"></span>
+              <span class="label-text">Symbols (!@#$%^&*)</span>
+            </label>
+            <p class="hint">!@#$%^&*()_+-=[]{}|;:,.<>?</p>
+          </div>
+
+          <div class="settings-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="useAmbiguous" class="checkbox-input">
+              <span class="checkbox-custom"></span>
+              <span class="label-text">Exclude Ambiguous (i, l, 1, L, o, 0, O)</span>
+            </label>
+            <p class="hint">Makes passwords easier to read</p>
+          </div>
+
+          <div class="settings-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="customChars" class="checkbox-input">
+              <span class="checkbox-custom"></span>
+              <span class="label-text">Custom Characters</span>
+            </label>
+            <input type="text" id="customCharsInput" class="custom-input" placeholder="Enter custom characters...">
+          </div>
+        </div>
+
+        <!-- Password Length -->
+        <div class="card settings-card">
+          <h2 class="card-title">Password Length</h2>
+          
+          <div class="length-control">
+            <input type="range" id="lengthSlider" class="slider" min="4" max="128" value="16">
+            <div class="length-display">
+              <input type="number" id="lengthInput" class="length-number" min="4" max="128" value="16">
+              <span class="length-unit">characters</span>
+            </div>
+          </div>
+
+          <div class="length-suggestions">
+            <small>📱 Weak: 4-8 | 🔒 Medium: 9-15 | 🛡️ Strong: 16+ | 💪 Extreme: 32+</small>
+          </div>
+        </div>
+
+        <!-- Advanced Options -->
+        <div class="card settings-card">
+          <h2 class="card-title">Advanced Options</h2>
+          
+          <div class="settings-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="ensureAll" class="checkbox-input" checked>
+              <span class="checkbox-custom"></span>
+              <span class="label-text">Ensure All Character Types</span>
+            </label>
+            <p class="hint">Guarantees at least one character from each selected set</p>
+          </div>
+
+          <div class="settings-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="startWithLetter" class="checkbox-input">
+              <span class="checkbox-custom"></span>
+              <span class="label-text">Start with Letter</span>
+            </label>
+            <p class="hint">First character will always be a letter</p>
+          </div>
+
+          <div class="settings-group">
+            <label class="text-label">
+              Bulk Generation Count:
+              <input type="number" id="bulkCount" class="number-input" min="1" max="100" value="5">
+            </label>
+          </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="card stats-card">
+          <h2 class="card-title">Statistics</h2>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-value" id="totalGenerated">0</span>
+              <span class="stat-label">Generated</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="totalCopied">0</span>
+              <span class="stat-label">Copied</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="avgStrength">-</span>
+              <span class="stat-label">Avg Strength</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- Output Box -->
-    <div class="output-box">
-      <input type="text" id="password" readonly>
-      <button onclick="copyPassword()">Copy</button>
+    <!-- Bottom Action Bar -->
+    <div class="action-bar">
+      <button id="bulkGenerateBtn" class="action-bar-btn">📊 Bulk Generate</button>
+      <button id="exportSettingsBtn" class="action-bar-btn">💾 Export Settings</button>
+      <button id="importSettingsBtn" class="action-bar-btn">📥 Import Settings</button>
+      <button id="analyzeBtn" class="action-bar-btn">📈 Analyze</button>
     </div>
 
-    <!-- Strength -->
-    <p id="strengthText">Strength: --</p>
+  </div>
 
-    <!-- Settings -->
-    <div class="settings">
-
-      <label>
-        Password Length:
-        <input type="number" id="length" min="4" max="100" value="12">
-      </label>
-
-      <label>
-        <input type="checkbox" id="uppercase" checked>
-        Include Uppercase Letters
-      </label>
-
-      <label>
-        <input type="checkbox" id="lowercase" checked>
-        Include Lowercase Letters
-      </label>
-
-      <label>
-        <input type="checkbox" id="numbers" checked>
-        Include Numbers
-      </label>
-
-      <label>
-        <input type="checkbox" id="symbols">
-        Include Symbols
-      </label>
-
+  <!-- Modals -->
+  <!-- Bulk Generation Modal -->
+  <div id="bulkModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Bulk Password Generation</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="bulkPasswordsList" class="bulk-passwords-list"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="copyAllBtn" class="modal-btn">Copy All</button>
+        <button id="downloadBulkBtn" class="modal-btn">Download CSV</button>
+        <button class="modal-btn secondary" onclick="document.getElementById('bulkModal').style.display='none'">Close</button>
+      </div>
     </div>
+  </div>
 
-    <!-- Generate Button -->
-    <button class="generate-btn" onclick="generatePassword()">
-      Generate Password
-    </button>
+  <!-- Analysis Modal -->
+  <div id="analysisModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Password Analysis</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="analysisContent" class="analysis-content"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn secondary" onclick="document.getElementById('analysisModal').style.display='none'">Close</button>
+      </div>
+    </div>
+  </div>
 
-    <!-- Copy Message -->
-    <p id="copyMsg"></p>
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Global Settings</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label class="settings-toggle">
+          <span>Auto-generate on load</span>
+          <input type="checkbox" id="autoGenerate" class="toggle-switch">
+        </label>
+        <label class="settings-toggle">
+          <span>Copy feedback sound</span>
+          <input type="checkbox" id="soundFeedback" class="toggle-switch">
+        </label>
+        <label class="settings-toggle">
+          <span>Enable keyboard shortcuts</span>
+          <input type="checkbox" id="keyboardShortcuts" class="toggle-switch" checked>
+        </label>
+        <label class="settings-toggle">
+          <span>Remember last settings</span>
+          <input type="checkbox" id="rememberSettings" class="toggle-switch" checked>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn secondary" onclick="document.getElementById('settingsModal').style.display='none'">Close</button>
+      </div>
+    </div>
+  </div>
 
+  <!-- Keyboard Shortcuts Info -->
+  <div id="shortcutsInfo" class="shortcuts-info">
+    <div class="shortcuts-content">
+      <h3>Keyboard Shortcuts</h3>
+      <ul>
+        <li><kbd>Space</kbd> - Generate Password</li>
+        <li><kbd>Ctrl/Cmd + C</kbd> - Copy Password</li>
+        <li><kbd>Ctrl/Cmd + R</kbd> - Refresh</li>
+        <li><kbd>Ctrl/Cmd + H</kbd> - Toggle History</li>
+        <li><kbd>?</kbd> - Show this help</li>
+      </ul>
+      <button onclick="document.getElementById('shortcutsInfo').style.display='none'">Close</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-
 </html>
